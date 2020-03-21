@@ -7,37 +7,30 @@ const empresas = require('./controllers/empresaController')
 
 module.exports = {
   Query: {
+    // clientes
     getClientes: clientes.index,
     getCliente: clientes.show,
 
+    // empresas
     getEmpresas: empresas.index,
 
-    //boletos: boletos.getBoletos
+    // boletos
+    getBoletos: boletos.index,
+    getBoleto: boletos.show
   },
   Mutation: {
+    // clientes
     criarCliente: clientes.store,
     editarCliente: clientes.update,
     deletarCliente: clientes.destroy,
 
-    criarEmpresa: empresas.store
+    // empresas
+    criarEmpresa: empresas.store,
+    deletarEmpresa: empresas.destroy,
+    editarEmpresa: empresas.update,
 
-    //criarBoleto: boletos.criarBoleto
+    // boletos
+    criarBoleto: boletos.store,
+    deletarBoleto: boletos.destroy,
   }
-
 }
-
-/*
-  valor: Number,
-  validade: String,
-  status: String,
-  codigo: String,
-  link: String,
-  cliente: {
-    type: moongose.Schema.Types.ObjectId, ref: 'Cliente'
-  },
-  empresa: {
-    type: moongose.Schema.Types.ObjectId, ref: 'Empresa'
-  },
-  */
-
-

@@ -17,7 +17,7 @@ type Boleto {
   valor: Float!
   status: String!
   codigo: String!
-  link: String!
+  link: String
   empresa: Empresa!
   cliente: Cliente!
 }
@@ -25,11 +25,11 @@ type Boleto {
 
 type Query {
   getClientes: [Cliente!]!
-  getCliente(id: ID!): Cliente
+  getCliente(id: ID, email: String): Cliente
 
   getEmpresas: [Empresa!]!
 
-  getBoletos:[Boleto!]!
+  getBoletos(empresa: String, cliente: String):[Boleto!]!
 }
 
 type Mutation {
@@ -38,4 +38,7 @@ type Mutation {
   editarCliente(id: String!, nome: String, email: String): Cliente
 
   criarEmpresa(nome: String!, cnpj: String!, email: String!, telefone: String!): Empresa
+
+  criarBoleto(valor: Float!, status: String, codigo: String!, link: String, idEmpresa: String!, idCliente: String!): Boleto
+  deletarBoleto(id: ID!): Boleto
 }

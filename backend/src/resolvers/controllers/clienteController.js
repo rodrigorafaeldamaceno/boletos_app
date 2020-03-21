@@ -4,16 +4,21 @@ module.exports = {
   index(_) {
     return Cliente.find()
   },
-  show(_, { id }) {
-    return Cliente.findById(id)
+  show(_, { id, email }) {
+    if (id)
+      return Cliente.findById(id)
+
+    if (email)
+      return Cliente.findOne({ email })
   },
   store(_, { nome, email }) {
     return Cliente.create({ nome, email })
   },
   update(_, { id, nome, email }) {
-    Cliente.findByIdAndUpdate(id, { nome, email })
+    return Cliente.findByIdAndUpdate(id, { nome, email })
   },
   destroy(_, { id }) {
-    Cliente.findByIdAndRemove(id)
+
+    return Cliente.findByIdAndRemove(id)
   },
 }
