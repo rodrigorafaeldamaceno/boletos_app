@@ -30,6 +30,7 @@ type Query {
   getEmpresas: [Empresa!]!
 
   getBoletos(empresa: String, cliente: String):[Boleto!]!
+  getBoleto(id: ID!): Boleto
 }
 
 type Mutation {
@@ -38,6 +39,8 @@ type Mutation {
   editarCliente(id: String!, nome: String, email: String): Cliente
 
   criarEmpresa(nome: String!, cnpj: String!, email: String!, telefone: String!): Empresa
+  deletarEmpresa(id: ID!): Empresa!
+  editarEmpresa(id: ID!, nome: String, email: String, telefone: String): Empresa!
 
   criarBoleto(valor: Float!, status: String, codigo: String!, link: String, idEmpresa: String!, idCliente: String!): Boleto
   deletarBoleto(id: ID!): Boleto

@@ -3,8 +3,6 @@ const clientes = require('./controllers/clienteController')
 const boletos = require('./controllers/boletoController')
 const empresas = require('./controllers/empresaController')
 
-
-
 module.exports = {
   Query: {
     // clientes
