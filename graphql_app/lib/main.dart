@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:graphql_app/pages/home/home.dart';
+import 'package:graphql_app/pages/home/home_adm.dart';
 import 'package:graphql_app/utils/graphql_configuration/graphql_configuration.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: HomeAdmScreen(),
     );
   }
 }

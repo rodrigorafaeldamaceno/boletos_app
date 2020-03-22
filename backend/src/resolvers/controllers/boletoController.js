@@ -5,11 +5,18 @@ const Cliente = require('../../model/cliente')
 
 module.exports = {
   async index(_, { cliente, empresa }) {
-    if (!cliente && !empresa)
-      return Boleto.find()
-    const boletos = await Boleto.find({ cliente, empresa }).populate(`cliente`).populate(`empresa`)
 
-    return boletos
+    if (!cliente && !empresa)
+      return Boleto.find().populate(`cliente`).populate(`empresa`)
+
+    if (!empresa)
+      return Boleto.find({ cliente }).populate(`cliente`).populate(`empresa`)
+
+    if (!cliente)
+      Boleto.find({ empresa }).populate(`cliente`).populate(`empresa`)
+
+    return Boleto.find({ cliente, empresa }).populate(`cliente`).populate(`empresa`)
+
   },
   show(_, { id }) {
     return Boleto.findById(id).populate(`cliente`).populate(`empresa`)

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_app/data/user/user_data.dart';
-import 'package:graphql_app/pages/crud/create_page.dart';
-import 'package:graphql_app/pages/crud/list_all_page.dart';
+import 'package:graphql_app/data/cliente/cliente_data.dart';
+import 'package:graphql_app/pages/cliente/listar_clientes.dart';
 import 'package:graphql_app/stores/home/home_store.dart';
 
-class MyHomePage extends StatefulWidget {
+class HomeAdmScreen extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomeAdmScreenState createState() => _HomeAdmScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  DataUser controller = DataUser();
+class _HomeAdmScreenState extends State<HomeAdmScreen> {
+  DataCliente controller = DataCliente();
   HomeStore store = HomeStore();
 
   @override
@@ -40,7 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ListAllPage()),
+                    MaterialPageRoute(
+                      builder: (context) => ListarClientesScreen(),
+                    ),
                   );
                 },
               ),
@@ -50,7 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CreatePage()),
+                    MaterialPageRoute(
+                      builder: (context) => ListarClientesScreen(),
+                    ),
                   );
                   // await controller.createUser('flutter', 'flutter', '15');
                 },

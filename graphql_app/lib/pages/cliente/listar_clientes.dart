@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_app/data/user/user_data.dart';
-import 'package:graphql_app/model/user/user_mode.dart';
+import 'package:graphql_app/data/cliente/cliente_data.dart';
+import 'package:graphql_app/model/cliente/cliente_model.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class ListAllPage extends StatelessWidget {
-  DataUser controller = DataUser();
+class ListarClientesScreen extends StatelessWidget {
+  DataCliente controller = DataCliente();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +23,9 @@ class ListAllPage extends StatelessWidget {
               );
             }
 
-            List<User> users = [];
+            List<Cliente> users = [];
             result.data['users'].forEach((value) {
-              users.add(User.fromJson(value));
+              users.add(Cliente.fromJson(value));
             });
 
             return Column(
@@ -53,7 +53,7 @@ class ListAllPage extends StatelessWidget {
     );
   }
 
-  Widget cardUser(User user) {
+  Widget cardUser(Cliente cliente) {
     return Container(
       color: Colors.blue,
       margin: EdgeInsets.all(4),
@@ -65,15 +65,11 @@ class ListAllPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'User: ${user.name}',
+              'User: ${cliente.nome}',
               style: TextStyle(fontSize: 16),
             ),
             Text(
-              'Email: ${user.email}',
-              style: TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Idade: ${user.age}',
+              'Email: ${cliente.email}',
               style: TextStyle(fontSize: 16),
             ),
           ],

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_app/data/user/user_data.dart';
-import 'package:graphql_app/pages/crud/list_all_page.dart';
+import 'package:graphql_app/data/cliente/cliente_data.dart';
+import 'package:graphql_app/pages/cliente/listar_clientes.dart';
 
 class CreatePage extends StatelessWidget {
   TextEditingController txtName = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
-  TextEditingController txtAge = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
 
-  DataUser controller = DataUser();
+  DataCliente controller = DataCliente();
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +31,22 @@ class CreatePage extends StatelessWidget {
               SizedBox(height: 10),
               customTextField(
                 'Idade',
-                txtAge,
+                txtPassword,
                 type: TextInputType.number,
               ),
               SizedBox(height: 30),
               RaisedButton(
                 onPressed: () async {
-                  await controller.createUser(
+                  await controller.criarCliente(
                     txtName.text,
                     txtEmail.text,
-                    txtAge.text,
+                    txtPassword.text,
                   );
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => ListAllPage()),
+                    MaterialPageRoute(
+                      builder: (context) => ListarClientesScreen(),
+                    ),
                   );
                 },
                 child: Text('Cadastrar'),

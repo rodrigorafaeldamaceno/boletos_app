@@ -1,24 +1,21 @@
-class User {
+class Cliente {
   String id;
-  String name;
+  String nome;
   String email;
-  int age;
 
-  User({this.id, this.name, this.email, this.age});
+  Cliente({this.id, this.nome, this.email});
 
-  User.fromJson(Map<String, dynamic> json) {
+  Cliente.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    nome = json['nome'];
     email = json['email'];
-    age = json['age'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
+    data['nome'] = this.nome;
     data['email'] = this.email;
-    data['age'] = this.age;
     return data;
   }
 }
