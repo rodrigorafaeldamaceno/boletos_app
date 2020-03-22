@@ -4,14 +4,15 @@ const Cliente = require('../../model/cliente')
 
 
 module.exports = {
-  index(_, { cliente, empresa }) {
+  async index(_, { cliente, empresa }) {
     if (!cliente && !empresa)
       return Boleto.find()
+    const boletos = await Boleto.find({ cliente, empresa }).populate(`cliente`).populate(`empresa`)
 
-    return Boleto.find({ cliente, empresa })
+    return boletos
   },
   show(_, { id }) {
-    return Boleto.findById(id)
+    return Boleto.findById(id).populate(`cliente`).populate(`empresa`)
   },
   async store(_, { valor, validade, status, codigo, link, idCliente, idEmpresa }) {
     if (!link) link = 'https://drive.google.com/open?id=1FhDpSBSNgz_wR7nNtx8f-9SVuMEZbp92'
@@ -22,7 +23,6 @@ module.exports = {
 
     const cliente = await Cliente.findById(idCliente)
 
-    console.log(empresa)
     if (!empresa || !cliente)
       return { "error": "sem empresa ou cliente" }
 
