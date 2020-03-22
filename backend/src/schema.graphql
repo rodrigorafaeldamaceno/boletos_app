@@ -2,6 +2,7 @@ type Cliente {
   id: String!
   nome: String!
   email: String!
+  password: String!
 }
 
 type Empresa {
@@ -18,6 +19,7 @@ type Boleto {
   status: String!
   codigo: String!
   link: String
+  dataValidade: String!
   empresa: Empresa!
   cliente: Cliente!
 }
@@ -25,7 +27,7 @@ type Boleto {
 
 type Query {
   getClientes: [Cliente!]!
-  getCliente(id: ID, email: String): Cliente
+  getCliente(id: ID, email: String, password: String): Cliente
 
   getEmpresas: [Empresa!]!
 
@@ -34,7 +36,7 @@ type Query {
 }
 
 type Mutation {
-  criarCliente(nome: String!, email: String!): Cliente
+  criarCliente(nome: String!, email: String!, password: String!): Cliente
   deletarCliente(id: String!): Cliente
   editarCliente(id: String!, nome: String, email: String): Cliente
 
@@ -42,6 +44,12 @@ type Mutation {
   deletarEmpresa(id: ID!): Empresa!
   editarEmpresa(id: ID!, nome: String, email: String, telefone: String): Empresa!
 
-  criarBoleto(valor: Float!, status: String, codigo: String!, link: String, idEmpresa: String!, idCliente: String!): Boleto
+  criarBoleto(valor: Float!, 
+    status: String, 
+    codigo: String!, 
+    link: String, 
+    dataValidade: String!
+    idEmpresa: String!, 
+    idCliente: String!): Boleto
   deletarBoleto(id: ID!): Boleto
 }

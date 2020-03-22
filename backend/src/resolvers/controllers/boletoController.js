@@ -14,7 +14,7 @@ module.exports = {
   show(_, { id }) {
     return Boleto.findById(id).populate(`cliente`).populate(`empresa`)
   },
-  async store(_, { valor, validade, status, codigo, link, idCliente, idEmpresa }) {
+  async store(_, { valor, dataValidade, status, codigo, link, idCliente, idEmpresa }) {
     if (!link) link = 'https://drive.google.com/open?id=1FhDpSBSNgz_wR7nNtx8f-9SVuMEZbp92'
 
     if (!status) status = 'ABERTO'
@@ -26,7 +26,7 @@ module.exports = {
     if (!empresa || !cliente)
       return { "error": "sem empresa ou cliente" }
 
-    return Boleto.create({ valor, validade, status, codigo, link, cliente, empresa })
+    return Boleto.create({ valor, dataValidade, status, codigo, link, cliente, empresa })
   },
   destroy(_, { id }) {
     return Boleto.findByIdAndRemove(id)

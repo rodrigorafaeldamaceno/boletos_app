@@ -1,18 +1,34 @@
 const mongoose = require('../database/database')
 
 const BoletoSchema = new mongoose.Schema({
-  valor: Number,
-  validade: String,
-  status: String,
-  codigo: String,
-  link: String,
+  valor: {
+    type: Number,
+    required: true,
+  },
+  dataValidade: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  codigo: {
+    type: String,
+    required: true,
+  },
+  link: {
+    type: String,
+  },
   cliente: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cliente'
+    ref: 'Cliente',
+    required: true
   },
   empresa: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Empresa'
+    ref: 'Empresa',
+    required: true
   },
 })
 
