@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_app/pages/boletos/boletos_screen.dart';
 import 'package:graphql_app/pages/home/home_adm.dart';
 import 'package:graphql_app/pages/home/home_screen.dart';
-import 'package:graphql_app/utils/Tema.dart';
+import 'package:graphql_app/utils/tema.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeController extends StatefulWidget {

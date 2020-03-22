@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_app/pages/home/home_adm.dart';
 import 'package:graphql_app/pages/home/home_controller.dart';
-import 'package:graphql_app/utils/Tema.dart';
 import 'package:graphql_app/utils/graphql_configuration/graphql_configuration.dart';
+import 'package:graphql_app/utils/tema.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();

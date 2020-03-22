@@ -6,7 +6,8 @@ class Boleto {
   double valor;
   String status;
   String codigo;
-  String dataValidade;
+  String dataVencimento;
+  String mesReferencia;
   Empresa empresa;
   Cliente cliente;
 
@@ -15,7 +16,8 @@ class Boleto {
       this.valor,
       this.status,
       this.codigo,
-      this.dataValidade,
+      this.dataVencimento,
+      this.mesReferencia,
       this.empresa,
       this.cliente});
 
@@ -24,7 +26,8 @@ class Boleto {
     valor = json['valor'];
     status = json['status'];
     codigo = json['codigo'];
-    dataValidade = json['dataValidade'];
+    dataVencimento = json['dataVencimento'];
+    mesReferencia = json['mesReferencia'];
     empresa =
         json['empresa'] != null ? new Empresa.fromJson(json['empresa']) : null;
     cliente =
@@ -37,7 +40,8 @@ class Boleto {
     data['valor'] = this.valor;
     data['status'] = this.status;
     data['codigo'] = this.codigo;
-    data['dataValidade'] = this.dataValidade;
+    data['dataVencimento'] = this.dataVencimento;
+    data['mesReferencia'] = this.mesReferencia;
     if (this.empresa != null) {
       data['empresa'] = this.empresa.toJson();
     }

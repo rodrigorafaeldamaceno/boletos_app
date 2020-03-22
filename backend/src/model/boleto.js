@@ -5,7 +5,11 @@ const BoletoSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  dataValidade: {
+  dataVencimento: {
+    type: String,
+    required: true,
+  },
+  mesReferencia: {
     type: String,
     required: true,
   },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_app/pages/boletos/card_boleto_home.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,12 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
             horizontal: 20,
             vertical: 4,
           ),
-          child: ExpansionTile(
-            title: Text(
-              "Ultimos boletos",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
+          child: CardBoletosHome(),
         ),
       ),
     );

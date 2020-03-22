@@ -19,7 +19,8 @@ type Boleto {
   status: String!
   codigo: String!
   link: String
-  dataValidade: String!
+  dataVencimento: String!
+  mesReferencia: String!
   empresa: Empresa!
   cliente: Cliente!
 }
@@ -48,7 +49,8 @@ type Mutation {
     status: String, 
     codigo: String!, 
     link: String, 
-    dataValidade: String!
+    dataVencimento: String!
+    mesReferencia: String!
     idEmpresa: String!, 
     idCliente: String!): Boleto
   deletarBoleto(id: ID!): Boleto
