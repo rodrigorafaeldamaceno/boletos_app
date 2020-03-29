@@ -8,6 +8,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class CardBoletosHome extends StatelessWidget {
   DataBoleto controller = DataBoleto();
+
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
@@ -20,11 +21,16 @@ class CardBoletosHome extends StatelessWidget {
         initiallyExpanded: true,
         children: <Widget>[
           Query(
-            options: controller.getBoletos("5e775c3050723c3d47351c36"),
+            options: controller.getBoletos(idCliente: "5e775c3050723c3d47351c36"),
             builder: (QueryResult result,
                 {VoidCallback refetch, FetchMore fetchMore}) {
+              if (result.loading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-              List<Boleto> boletos = [];
+              List<Boleto> boletos = List<Boleto>();
               result.data['getBoletos'].forEach((value) {
                 boletos.add(Boleto.fromJson(value));
               });

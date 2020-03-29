@@ -2,9 +2,12 @@ import 'package:flutter/foundation.dart';
 
 class BoletoQueryMutation {
   String getBoletos(String idCliente, String idEmpresa) {
+    String queryEmpresa = "";
+    if (idEmpresa != null) queryEmpresa = 'empresa:"$idEmpresa"';
+
     return '''
       query getBoletos{
-        getBoletos(cliente:"$idCliente", empresa:"$idEmpresa"){
+        getBoletos(cliente:"$idCliente" $queryEmpresa){
           id
           valor
           status

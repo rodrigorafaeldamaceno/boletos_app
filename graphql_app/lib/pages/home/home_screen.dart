@@ -16,10 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 4,
-          ),
+          
           child: CardBoletosHome(),
         ),
       ),

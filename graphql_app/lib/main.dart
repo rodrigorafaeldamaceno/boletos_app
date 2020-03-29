@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await DotEnv().load('.env');
+  print(DotEnv().env['API_URL'].toString());
 
   return runApp(GraphQLProvider(
     client: graphQLConfiguration.client,
