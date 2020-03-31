@@ -3,14 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:graphql_app/model/boleto/boleto_model.dart';
 import 'package:graphql_app/utils/tema.dart';
 import 'package:intl/intl.dart';
-// import 'package:jacad_mobile/data/financeiro/financeiro_data.dart';
-// import 'package:jacad_mobile/models/financeiro/boleto_model.dart';
-// import 'package:jacad_mobile/utils/funcoes/funcoes_uteis.dart';
-// import 'package:jacad_mobile/utils/tema/tema.dart';
-// import 'package:jacad_mobile/widgets/custom/dialogs/custom_progress_dialog.dart';
-// import 'package:jacad_mobile/widgets/custom/snack_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
 
 class BoletoInfoScreen extends StatefulWidget {
   BoletoInfoScreen({this.boleto});
