@@ -12,7 +12,6 @@ class HomeController extends StatefulWidget {
 
 class _HomeControllerState extends State<HomeController> {
   int _currentIndex = 0;
-
   PageController _pageController = PageController();
 
   @override

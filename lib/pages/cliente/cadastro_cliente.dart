@@ -3,11 +3,19 @@ import 'package:graphql_app/data/cliente/cliente_data.dart';
 import 'package:graphql_app/pages/cliente/listar_clientes.dart';
 
 class CreatePage extends StatelessWidget {
-  TextEditingController txtName = TextEditingController();
+  DataCliente controller = DataCliente();
   TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtName = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
 
-  DataCliente controller = DataCliente();
+  Widget customTextField(String label, TextEditingController controller,
+      {TextInputType type: TextInputType.text}) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(labelText: label),
+      keyboardType: type,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +63,6 @@ class CreatePage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget customTextField(String label, TextEditingController controller,
-      {TextInputType type: TextInputType.text}) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(labelText: label),
-      keyboardType: type,
     );
   }
 }

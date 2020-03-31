@@ -23,7 +23,7 @@ class Boleto {
 
   Boleto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    valor = json['valor'];
+    valor = json['valor'].toDouble();
     status = json['status'];
     codigo = json['codigo'];
     dataVencimento = json['dataVencimento'];

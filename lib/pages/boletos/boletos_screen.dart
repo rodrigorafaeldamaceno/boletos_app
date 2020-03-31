@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_app/data/boleto/boleto_data.dart';
+import 'package:graphql_app/model/boleto/boleto_model.dart';
 import 'package:graphql_app/model/empresa/empresa_model.dart';
+import 'package:graphql_app/pages/boletos/card_boleto.dart';
 import 'package:graphql_app/utils/tema.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -11,10 +13,15 @@ class BoletosScreen extends StatefulWidget {
 }
 
 class _BoletosScreenState extends State<BoletosScreen> {
+  DataBoleto controller = DataBoleto();
+
   GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController _scrollController = ScrollController();
 
-  DataBoleto controller = DataBoleto();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Widget buildListaEmpresas(List<Empresa> listaEmpresa) {
     return ListView.builder(
@@ -24,7 +31,7 @@ class _BoletosScreenState extends State<BoletosScreen> {
       itemBuilder: (context, index) {
         return Observer(
           builder: (_) {
-            return false
+            return controller.empresaSelecionada == index
                 ? Container(
                     margin: EdgeInsets.all(6),
                     padding: EdgeInsets.only(
@@ -51,7 +58,8 @@ class _BoletosScreenState extends State<BoletosScreen> {
                   )
                 : InkWell(
                     onTap: () async {
-                      // controller.setSelecionado(index);
+                      controller.setSmpresaSelecionada(index);
+                      controller.setIdEmpresa(listaEmpresa[index].id);
 
                       // controller.ocorrencias =
                       //     await controller.listarOcorrencias(
@@ -81,12 +89,49 @@ class _BoletosScreenState extends State<BoletosScreen> {
     );
   }
 
+  buildListaBoletos({bool todosBoletos: true}) {
+    return Query(
+      options: controller.getBoletos(
+        idCliente: "5e775c3050723c3d47351c36",
+        idEmpresa: controller.idEmpresa,
+      ),
+      builder: (QueryResult result,
+          {VoidCallback refetch, FetchMore fetchMore}) {
+        if (result.loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        List<Boleto> boletos = List<Boleto>();
+        List<Boleto> boletosAbertos = List<Boleto>();
+
+        result.data['getBoletos'].forEach((value) {
+          boletos.add(Boleto.fromJson(value));
+          if (value['status'] == "ABERTO")
+            boletosAbertos.add(Boleto.fromJson(value));
+        });
+
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: todosBoletos ? boletos.length : boletosAbertos.length,
+          itemBuilder: (BuildContext context, int index) {
+            return CardBoleto(
+              boleto: todosBoletos ? boletos[index] : boletosAbertos[index],
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Tema.corPrincipal,
         centerTitle: true,
@@ -96,46 +141,83 @@ class _BoletosScreenState extends State<BoletosScreen> {
         ),
       ),
       body: Container(
-        height: size.height * 0.9,
-        child: Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      width: double.infinity,
-                      height: 45,
-                      color: Colors.white,
-                      child: Query(
-                        options: controller.getBoletos(
-                          idCliente: '5e775c3050723c3d47351c36',
-                        ),
-                        builder: (QueryResult result,
-                            {VoidCallback refetch, FetchMore fetchMore}) {
-                          if (result.loading) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          List<Empresa> empresas = List<Empresa>();
+            Container(
+              width: double.infinity,
+              height: 45,
+              color: Colors.white,
+              child: Query(
+                options: controller.getBoletos(
+                    idCliente: '5e775c3050723c3d47351c36',
+                    distinctEmpresa: true),
+                builder: (QueryResult result,
+                    {VoidCallback refetch, FetchMore fetchMore}) {
+                  if (result.loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  List<Empresa> empresas = List<Empresa>();
 
-                          empresas.add(Empresa(nome: 'Todas'));
-                          result.data['getBoletos'].forEach((value) {
-                            empresas.add(Empresa.fromJson(value['empresa']));
-                          });
-                          print(empresas.length);
-                          return buildListaEmpresas(empresas);
-                        },
-                      )),
-                  //pages(),
-                  // Padding(
-                  //   padding: EdgeInsets.only(bottom: size.height * 0.065),
-                  //   child: listaOcorrencias(),
-                  // )
-                ],
+                  empresas.add(Empresa(nome: 'Todas'));
+                  result.data['getBoletos'].forEach((value) {
+                    empresas.add(Empresa.fromJson(value['empresa']));
+                  });
+                  return buildListaEmpresas(empresas);
+                },
               ),
             ),
+            Container(
+              height: size.height * 0.7,
+              child: DefaultTabController(
+                length: 2,
+                child: Scaffold(
+                  appBar: PreferredSize(
+                    preferredSize: new Size(double.infinity, size.height * 0.1),
+                    child: Container(
+                      child: TabBar(
+                        unselectedLabelColor: Colors.black54,
+                        labelPadding: EdgeInsets.symmetric(vertical: 8),
+                        labelColor: Tema.corPrincipal,
+                        indicatorColor: Tema.corPrincipal,
+                        labelStyle: TextStyle(fontWeight: FontWeight.w700),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                        ),
+                        indicatorWeight: 3.0,
+                        tabs: [
+                          Tab(text: "Em aberto"),
+                          Tab(text: "Todos"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  body: Container(
+                    child: TabBarView(
+                      children: [
+                        SingleChildScrollView(
+                          child: Observer(
+                            builder: (_) {
+                              return buildListaBoletos(todosBoletos: false);
+                            },
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          child: Observer(
+                            builder: (_) {
+                              return buildListaBoletos();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

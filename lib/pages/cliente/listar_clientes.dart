@@ -5,6 +5,32 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ListarClientesScreen extends StatelessWidget {
   DataCliente controller = DataCliente();
+
+  Widget cardUser(Cliente cliente) {
+    return Container(
+      color: Colors.blue,
+      margin: EdgeInsets.all(4),
+      padding: EdgeInsets.only(left: 4),
+      child: Container(
+        color: Colors.white,
+        padding: EdgeInsets.all(4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'User: ${cliente.nome}',
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Email: ${cliente.email}',
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,31 +74,6 @@ class ListarClientesScreen extends StatelessWidget {
               ],
             );
           },
-        ),
-      ),
-    );
-  }
-
-  Widget cardUser(Cliente cliente) {
-    return Container(
-      color: Colors.blue,
-      margin: EdgeInsets.all(4),
-      padding: EdgeInsets.only(left: 4),
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'User: ${cliente.nome}',
-              style: TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Email: ${cliente.email}',
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
         ),
       ),
     );

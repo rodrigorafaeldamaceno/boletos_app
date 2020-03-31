@@ -5,7 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 class GraphQLConfiguration {
   static HttpLink httpLink = HttpLink(
     // uri: DotEnv().env['API_URL'].toString()
-    uri: 'http://192.168.0.36:3000/'
+    uri: 'https://boletos-app.herokuapp.com/'
   );
 
   ValueNotifier<GraphQLClient> client = ValueNotifier(
